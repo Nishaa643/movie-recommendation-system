@@ -4,14 +4,12 @@ import pandas as pd
 import requests
 import gdown
 import os
-if not os.path.exists('similarity.pkl'):
-    # run your notebook preprocessing here
-    pass
 
-
+# Download similarity.pkl from Google Drive if not present
 if not os.path.exists('similarity.pkl'):
     url = 'https://drive.google.com/uc?id=1W3hU1TMc9q4ZG76FG3A26tGu3Bscufhj'
     gdown.download(url, 'similarity.pkl', quiet=False)
+
 def fetch_poster(movie_id):
     try:
         response = requests.get(
@@ -26,7 +24,10 @@ def fetch_poster(movie_id):
             timeout=10
         )
         data = response.json()
-        return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
+        if 'poster_path' in data and data['poster_path']:
+            return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
+        else:
+            return "https://placehold.co/500x750?text=No+Poster"
     except:
         return "https://placehold.co/500x750?text=No+Poster"
 
