@@ -2,10 +2,16 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
+import gdown
 import os
 if not os.path.exists('similarity.pkl'):
     # run your notebook preprocessing here
     pass
+
+
+if not os.path.exists('similarity.pkl'):
+    url = 'https://drive.google.com/uc?id=1W3hU1TMc9q4ZG76FG3A26tGu3Bscufhj'
+    gdown.download(url, 'similarity.pkl', quiet=False)
 def fetch_poster(movie_id):
     try:
         response = requests.get(
