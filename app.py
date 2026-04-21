@@ -2,7 +2,10 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
-
+import os
+if not os.path.exists('similarity.pkl'):
+    # run your notebook preprocessing here
+    pass
 def fetch_poster(movie_id):
     try:
         response = requests.get(
